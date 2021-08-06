@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
@@ -5,10 +6,10 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit{
-  public constructor(private titleService: Title) { }
+export class AppComponent implements OnInit {
+  public constructor(private titleService: Title) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.titleService.setTitle('Angular Car Showroom');
   }
 }
