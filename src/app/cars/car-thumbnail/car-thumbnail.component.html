@@ -1,0 +1,19 @@
+<div class="card mb-4 box-shadow" (dblclick)="edit.emit(car)">
+  <div class="card-header">
+    <h2 class="card-title">{{ car?.manufacturer }} {{ car?.model }}</h2>
+  </div>
+  <div class="card-body my-0 font-weight-normal">
+    <div><strong>Price:</strong> {{ car?.price | currency: 'GBP' }}</div>
+    <div><strong>Mileage:</strong> {{ car?.mileage | number }}</div>
+    <em>{{ car?.description }}</em>
+  </div>
+</div>
+
+<!--
+<mat-card class="item" (dblclick)="edit.emit(car)">
+  <h2>{{ car?.manufacturer }} {{ car?.model }}</h2>
+  <div><strong>Price:</strong> {{ car?.price | currency: 'GBP' }}</div>
+  <div><strong>Mileage:</strong> {{ car?.mileage | number }}</div>
+  <em>{{ car?.description }}</em>
+</mat-card>
+-->

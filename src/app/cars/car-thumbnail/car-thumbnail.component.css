@@ -1,0 +1,7 @@
+.card-body {
+  min-height: 150px;
+}
+
+.card:hover {
+  cursor: pointer;
+}

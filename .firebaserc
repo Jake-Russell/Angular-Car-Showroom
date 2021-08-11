@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-car-showroom": {
+      "hosting": {
+        "angular-car-showroom": [
+          "angular-car-showroom"
+        ]
+      }
+    }
+  }
+}

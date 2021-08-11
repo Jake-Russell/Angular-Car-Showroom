@@ -7,6 +7,8 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+  closeResult!: string;
+
   public constructor(private titleService: Title) {}
 
   ngOnInit(): void {

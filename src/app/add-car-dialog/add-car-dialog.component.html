@@ -1,0 +1,47 @@
+<mat-form-field>
+  <mat-label>Car Manufacturer</mat-label>
+  <input matInput cdkFocusInitial [(ngModel)]="data.car.manufacturer" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Car Model</mat-label>
+  <input matInput cdkFocusInitial [(ngModel)]="data.car.model" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Car Description</mat-label>
+  <textarea
+    matInput
+    cdkFocusInitial
+    [(ngModel)]="data.car.description"
+  ></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Price</mat-label>
+  <input type="number" matInput cdkFocusInitial [(ngModel)]="data.car.price" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Mileage</mat-label>
+  <input
+    type="number"
+    matInput
+    cdkFocusInitial
+    [(ngModel)]="data.car.mileage"
+  />
+</mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="{ car: data.car }">Save</button>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button
+    *ngIf="data.enableDelete"
+    mat-fab
+    color="primary"
+    aria-label="Delete"
+    [mat-dialog-close]="{ car: data.car, delete: true }"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
