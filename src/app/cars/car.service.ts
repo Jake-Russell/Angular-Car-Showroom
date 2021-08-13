@@ -5,6 +5,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Car } from './car';
+import { CarSortBy } from './car-sort-by.enum';
 
 @Injectable()
 export class CarService {
@@ -18,8 +19,20 @@ export class CarService {
       .valueChanges({ idField: 'id' });
   }
 
-  getCarList() {
-    return this.firestore.collection('cars').valueChanges({ idField: 'id' });
+  getCarList(sortBy: string, order: 'asc' | 'desc') {
+    return this.firestore
+      .collection('cars', (ref) =>
+        ref
+          .orderBy('manufacturer')
+          .startAt('Mi')
+          .endAt('Mi' + '\uf8ff')
+      )
+      .valueChanges({ idField: 'id' });
+    /* console.log(`Sorting by: ${sortBy}`);
+    return this.firestore
+      .collection('cars', (ref) => ref.orderBy(sortBy, order))
+      .valueChanges({ idField: 'id' });
+    */
   }
 
   saveCar(car: Car, isNewCar: boolean) {

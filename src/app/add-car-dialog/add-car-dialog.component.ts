@@ -42,7 +42,6 @@ export class AddCarDialogComponent {
   }
 
   onFormSubmit(form: Car): void {
-    console.log(form);
     if (this.delete) this.carService.deleteCar(form);
     else if (!this.cancel) this.carService.saveCar(form, this.isNewCar);
     this.dialogRef.close(this.data);
