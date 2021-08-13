@@ -1,22 +1,12 @@
 .content-wrapper {
-  max-width: 1400px;
-  margin: auto;
+  margin: 20px;
 }
 
-/*
-.container-wrapper {
+.parent {
   display: flex;
-  justify-content: space-around;
-}
-*/
-
-.container {
-  width: 400px;
-  margin: 0 25px 25px 0;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-/*
-car-thumbnail {
-  width: 500px;
+.child {
 }
-*/

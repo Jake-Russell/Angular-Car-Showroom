@@ -1,19 +1,18 @@
-<!--
-<div>
+<div class="content-wrapper">
   <h1>Available Cars</h1>
   <hr />
   <button mat-button (click)="addNewCar()">
     <mat-icon>add</mat-icon> Add Car
   </button>
-  <div *ngIf="cars$ | async as cars; else noItems" class="row">
-  <div class="row">
-    <div class="col-md-5" *ngFor="let car of cars">
-      <car-thumbnail [car]="car"></car-thumbnail>
+  <div *ngIf="cars$ | async as cars; else noItems">
+    <div class="parent">
+      <div *ngFor="let car of cars" class="child">
+        <car-thumbnail [car]="car" (edit)="edit($event)"></car-thumbnail>
+      </div>
     </div>
   </div>
-</div>
--->
 
+  <!--
 <div class="content-wrapper">
   <h1>Available Cars</h1>
   <hr />
@@ -30,7 +29,8 @@
     </div>
   </div>
 </div>
-
-<ng-template #noItems>
-  <h5>There are no cars for sale right now. Please check back later.</h5>
-</ng-template>
+-->
+  <ng-template #noItems>
+    <h5>There are no cars for sale right now. Please check back later.</h5>
+  </ng-template>
+</div>

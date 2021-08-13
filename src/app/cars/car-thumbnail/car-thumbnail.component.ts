@@ -1,6 +1,4 @@
-import {
-  Component, Input, Output, EventEmitter
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Car } from '../car';
 
 @Component({
@@ -9,7 +7,7 @@ import { Car } from '../car';
   styleUrls: ['./car-thumbnail.component.css']
 })
 export class CarThumbnailComponent {
-  @Input() car!: Car;
+  @Input() car!: any;
 
   @Output() edit = new EventEmitter();
 }

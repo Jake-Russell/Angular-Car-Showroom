@@ -1,47 +1,124 @@
-<mat-form-field>
-  <mat-label>Car Manufacturer</mat-label>
-  <input matInput cdkFocusInitial [(ngModel)]="data.car.manufacturer" />
-</mat-form-field>
+<form [formGroup]="regiForm" (ngSubmit)="onFormSubmit(regiForm.getRawValue())">
+  <div class="example-container" *ngIf="data.enableDelete">
+    <mat-form-field appearance="outline">
+      <mat-label>Car ID</mat-label>
+      <input formControlName="id" matInput />
+    </mat-form-field>
+  </div>
 
-<mat-form-field>
-  <mat-label>Car Model</mat-label>
-  <input matInput cdkFocusInitial [(ngModel)]="data.car.model" />
-</mat-form-field>
+  <div class="example-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Car Manufacturer</mat-label>
+      <input formControlName="manufacturer" matInput />
+      <mat-error>
+        <span
+          *ngIf="
+            !regiForm.get('manufacturer')?.valid &&
+            regiForm.get('manufacturer')?.touched
+          "
+          >Please enter the car manufacturer</span
+        >
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-<mat-form-field>
-  <mat-label>Car Description</mat-label>
-  <textarea
-    matInput
-    cdkFocusInitial
-    [(ngModel)]="data.car.description"
-  ></textarea>
-</mat-form-field>
+  <div class="example-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Car Model</mat-label>
+      <input formControlName="model" matInput />
+      <mat-error>
+        <span
+          *ngIf="
+            !regiForm.get('model')?.valid && regiForm.get('model')?.touched
+          "
+          >Please enter the car model</span
+        >
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-<mat-form-field>
-  <mat-label>Price</mat-label>
-  <input type="number" matInput cdkFocusInitial [(ngModel)]="data.car.price" />
-</mat-form-field>
+  <div class="example-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Car Description</mat-label>
+      <textarea formControlName="description" matInput #description></textarea>
+      <small *ngIf="description.value.length < 20" class="form-text text-muted"
+        >Minimum of <code>{{ 20 - description.value.length }}</code> more
+        characters required</small
+      >
+      <mat-error>
+        <span
+          *ngIf="
+            !regiForm.get('description')?.valid &&
+            regiForm.get('description')?.touched
+          "
+        >
+          <span *ngIf="regiForm.get('description')?.errors?.minlength"
+            >The description must be at least 20 characters</span
+          >
+          <span *ngIf="regiForm.get('description')?.errors?.required"
+            >Please enter the description</span
+          >
+        </span>
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-<mat-form-field>
-  <mat-label>Mileage</mat-label>
-  <input
-    type="number"
-    matInput
-    cdkFocusInitial
-    [(ngModel)]="data.car.mileage"
-  />
-</mat-form-field>
+  <div class="example-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Car Price</mat-label>
+      <input type="number" formControlName="price" matInput />
+      <mat-error>
+        <span
+          *ngIf="
+            !regiForm.get('price')?.valid && regiForm.get('price')?.touched
+          "
+          >Please enter the car price</span
+        >
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="{ car: data.car }">Save</button>
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button
-    *ngIf="data.enableDelete"
-    mat-fab
-    color="primary"
-    aria-label="Delete"
-    [mat-dialog-close]="{ car: data.car, delete: true }"
-  >
-    <mat-icon>delete</mat-icon>
-  </button>
-</div>
+  <div class="example-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Car Mileage</mat-label>
+      <input type="number" formControlName="mileage" matInput />
+      <mat-error>
+        <span
+          *ngIf="
+            !regiForm.get('mileage')?.valid && regiForm.get('mileage')?.touched
+          "
+          >Please enter the car mileage</span
+        >
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button
+      mat-fab
+      color="primary"
+      aria-label="submit"
+      [disabled]="!regiForm.valid"
+    >
+      <mat-icon>check</mat-icon>
+    </button>
+    <button mat-fab color="accent" aria-label="cancel" (click)="cancel = true">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button
+      *ngIf="data.enableDelete"
+      mat-fab
+      color="warn"
+      aria-label="Delete"
+      (click)="delete = true"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</form>
+
+<!--
+<br />Dirty: {{ addNewCarForm.dirty }} <br />Touched:
+{{ addNewCarForm.touched }} <br />Valid: {{ addNewCarForm.valid }} <br />Value:
+{{ addNewCarForm.value | json }}
+-->

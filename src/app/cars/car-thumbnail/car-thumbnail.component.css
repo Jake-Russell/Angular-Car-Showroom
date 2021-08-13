@@ -1,7 +1,12 @@
-.card-body {
-  min-height: 150px;
+mat-card-content {
+  min-height: 160px;
 }
 
-.card:hover {
+mat-card {
+  margin: 20px;
+  width: 500px;
+}
+
+mat-card:hover {
   cursor: pointer;
 }
