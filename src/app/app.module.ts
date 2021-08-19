@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
@@ -18,6 +18,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { appRoutes } from './routes';
@@ -25,6 +26,9 @@ import { CarList } from './cars/car-list/car-list.component';
 import { CarThumbnailComponent } from './cars/car-thumbnail/car-thumbnail.component';
 import { CarService } from './cars/car.service';
 import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { RegisterComponent } from './register/register.component';
+import { CarDetailsComponent } from './cars/car-details/car-details.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,10 @@ import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component
     NavBarComponent,
     CarList,
     CarThumbnailComponent,
-    AddCarDialogComponent
+    AddCarDialogComponent,
+    LogInComponent,
+    RegisterComponent,
+    CarDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,8 @@ import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component
     FormsModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FlexLayoutModule
   ],
   providers: [Title, CarService],
   bootstrap: [AppComponent]

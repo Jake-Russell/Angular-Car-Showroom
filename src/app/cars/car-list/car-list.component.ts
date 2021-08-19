@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AddCarDialogComponent } from 'src/app/add-car-dialog/add-car-dialog.component';
 import { Car } from '../car';
@@ -9,7 +8,6 @@ import { CarSortBy } from '../car-sort-by.enum';
 import { CarService } from '../car.service';
 
 @Component({
-  selector: 'car-list',
   templateUrl: './car-list.component.html',
   styleUrls: ['./car-list.component.css']
 })

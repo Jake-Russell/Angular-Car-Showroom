@@ -1,0 +1,17 @@
+<div>
+  <img [src]="car?.imageUrl" [alt]="car?.manufacturer" />
+
+  <div class="row">
+    <div class="col-md-11">
+      <h2>{{ car?.manufacturer }} {{ car?.model }}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div><strong>Description:</strong> {{ car?.description }}</div>
+      <div><strong>Price:</strong> £{{ car?.price }}</div>
+      <div><strong>Mileage:</strong> {{ car?.mileage }}</div>
+    </div>
+  </div>
+</div>
