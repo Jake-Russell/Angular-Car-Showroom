@@ -8,6 +8,10 @@
   flex-wrap: wrap;
 }
 
-.carResultsForm {
-  /* float: right; */
+.spinner {
+  margin: auto;
+}
+
+.noCars {
+  text-align: center;
 }

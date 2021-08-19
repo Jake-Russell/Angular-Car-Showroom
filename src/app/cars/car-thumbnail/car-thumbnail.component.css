@@ -10,3 +10,8 @@ mat-card {
 mat-card:hover {
   cursor: pointer;
 }
+
+img {
+  padding: 10px;
+  border-radius: 5%;
+}

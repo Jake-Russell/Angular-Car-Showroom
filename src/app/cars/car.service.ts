@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Car } from './car';
 import { CarSortBy } from './car-sort-by.enum';
 
@@ -11,62 +13,64 @@ import { CarSortBy } from './car-sort-by.enum';
 export class CarService {
   carsCollection!: AngularFirestoreCollection<Car>;
 
-  cars$!: Observable<any>;
+  constructor(
+    private firestore: AngularFirestore,
+    private httpClient: HttpClient
+  ) {}
 
-  constructor(private firestore: AngularFirestore) {
-    this.cars$ = this.firestore
-      .collection('cars')
-      .valueChanges({ idField: 'id' });
-  }
+  getAllCars(sortBy: string, searchTerm?: string): Observable<Car[]> {
+    let order = 1;
+    let search = 'manufacturer';
 
-  getCarList(sortBy: string, order: 'asc' | 'desc') {
-    return this.firestore
-      .collection('cars', (ref) =>
-        ref
-          .orderBy('manufacturer')
-          .startAt('Mi')
-          .endAt('Mi' + '\uf8ff')
-      )
-      .valueChanges({ idField: 'id' });
-    /* console.log(`Sorting by: ${sortBy}`);
-    return this.firestore
-      .collection('cars', (ref) => ref.orderBy(sortBy, order))
-      .valueChanges({ idField: 'id' });
-    */
-  }
-
-  saveCar(car: Car, isNewCar: boolean) {
-    if (isNewCar) {
-      const newId = this.firestore.createId();
-      car.id = newId;
-      return new Promise<any>((resolve, reject) => {
-        this.firestore
-          .collection('cars')
-          .doc(newId)
-          .set(car)
-          .then(
-            (response) => {
-              console.log(response);
-            },
-            (error) => reject(error)
-          );
-      });
+    switch (sortBy) {
+      case CarSortBy.MILEAGE_ASCENDING:
+        search = 'mileage';
+        order = 1;
+        break;
+      case CarSortBy.MILEAGE_DESCENDING:
+        search = 'mileage';
+        order = -1;
+        break;
+      case CarSortBy.PRICE_ASCENDING:
+        search = 'price';
+        order = 1;
+        break;
+      case CarSortBy.PRICE_DESCENDING:
+        search = 'price';
+        order = -1;
+        break;
+      default:
+        search = 'manufacturer';
+        order = 1;
     }
-    return new Promise<any>((resolve, reject) => {
-      this.firestore
-        .collection('cars')
-        .doc(car.id)
-        .update(car)
-        .then(
-          (response) => {
-            console.log(response);
-          },
-          (error) => reject(error)
-        );
-    });
+
+    if (searchTerm && searchTerm !== '' && searchTerm !== null) {
+      return this.httpClient.get<Car[]>(
+        `http://localhost:3000/cars/search/${search}/${order}/${searchTerm}`
+      );
+    }
+    return this.httpClient.get<Car[]>(
+      `http://localhost:3000/cars/${search}/${order}`
+    );
   }
 
-  deleteCar(car: Car) {
-    return this.firestore.collection('cars').doc(car.id).delete();
+  searchCars(searchTerm: string): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(
+      `http://localhost:3000/cars/search/${searchTerm}`
+    );
+  }
+
+  saveCar(car: Car, isNewCar: boolean): Observable<Car> {
+    console.log(`Car in Service has imageUrl: ${car.imageUrl}`);
+    if (isNewCar)
+      return this.httpClient.post<Car>('http://localhost:3000/cars', car);
+    return this.httpClient.put<Car>(
+      `http://localhost:3000/cars/update/${car._id}`,
+      car
+    );
+  }
+
+  deleteCar(car: Car): Observable<Car> {
+    return this.httpClient.delete<Car>(`http://localhost:3000/cars/${car._id}`);
   }
 }

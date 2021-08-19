@@ -2,7 +2,7 @@
   <div class="example-container" *ngIf="data.enableDelete">
     <mat-form-field appearance="outline">
       <mat-label>Car ID</mat-label>
-      <input formControlName="id" matInput />
+      <input formControlName="_id" matInput />
     </mat-form-field>
   </div>
 
@@ -88,6 +88,22 @@
             !regiForm.get('mileage')?.valid && regiForm.get('mileage')?.touched
           "
           >Please enter the car mileage</span
+        >
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="example-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Image URL</mat-label>
+      <input formControlName="imageUrl" matInput />
+      <mat-error>
+        <span
+          *ngIf="
+            !regiForm.get('imageUrl')?.valid &&
+            regiForm.get('imageUrl')?.touched
+          "
+          >Please enter the image url</span
         >
       </mat-error>
     </mat-form-field>

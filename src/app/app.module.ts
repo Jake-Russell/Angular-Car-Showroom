@@ -14,6 +14,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { appRoutes } from './routes';
@@ -32,6 +36,9 @@ import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -44,7 +51,9 @@ import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ],
   providers: [Title, CarService],
   bootstrap: [AppComponent]

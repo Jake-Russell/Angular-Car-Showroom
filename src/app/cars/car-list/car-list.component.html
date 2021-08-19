@@ -8,10 +8,7 @@
   <form [formGroup]="carResults" class="carResultsForm">
     <mat-form-field appearance="outline">
       <mat-label>Sort By</mat-label>
-      <mat-select
-        (selectionChange)="onChangeSort($event.value)"
-        formControlName="sortBy"
-      >
+      <mat-select formControlName="sortBy">
         <mat-option
           *ngFor="let type of eCarSortBy | keyvalue"
           [value]="type.value"
@@ -21,20 +18,34 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Car Manufacturer</mat-label>
-      <input matInput formControlName="filterBy" />
+      <mat-label>Search Term</mat-label>
+      <input matInput formControlName="searchTerm" />
     </mat-form-field>
   </form>
 
-  <div *ngIf="cars$ | async as cars; else noItems">
-    <div class="parent">
+  <mat-slide-toggle (change)="showImages = !showImages"
+    >Show Images</mat-slide-toggle
+  >
+
+  <div *ngIf="cars$ | async as cars; else loading">
+    <div class="parent" *ngIf="cars.length > 0; else noCars">
       <div *ngFor="let car of cars" class="child">
-        <car-thumbnail [car]="car" (edit)="edit($event)"></car-thumbnail>
+        <car-thumbnail
+          [car]="car"
+          [showImages]="showImages"
+          (edit)="edit($event)"
+        ></car-thumbnail>
       </div>
     </div>
   </div>
 
-  <ng-template #noItems>
-    <h5>There are no cars for sale right now. Please check back later.</h5>
+  <ng-template #loading>
+    <mat-spinner color:accent class="spinner"></mat-spinner>
+  </ng-template>
+
+  <ng-template #noCars>
+    <h3 class="noCars">
+      There are no cars available matching this search criteria.
+    </h3>
   </ng-template>
 </div>
