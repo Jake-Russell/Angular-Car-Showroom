@@ -1,5 +1,3 @@
-<!-- <mat-card (click)="edit.emit(car)"> -->
-<!-- <mat-card [routerLink]="['/cars', car._id]"> -->
 <mat-card (click)="click(car)">
   <mat-card-title> {{ car?.manufacturer }} {{ car?.model }} </mat-card-title>
 
@@ -11,7 +9,6 @@
       *ngIf="showImages"
       mat-card-image
       [src]="car?.imageUrl"
-      alt=""
       loading="lazy"
     />
   </mat-card-content>

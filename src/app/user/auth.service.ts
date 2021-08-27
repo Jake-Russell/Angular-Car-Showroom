@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import { apiUrl } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { JwtPayload } from './jwt.payload.model';
 import { User } from './user.model';
+import { UserRegister } from './user.register.model';
+import { UserLogin } from './user.login.model';
 
 @Injectable()
 export class AuthService {
@@ -12,20 +15,20 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) {}
 
-  loginUser(username: string, password: string): Observable<any> {
+  loginUser(username: string, password: string): Observable<UserLogin> {
     return this.httpClient
-      .post(`${apiUrl}users/login`, {
+      .post<UserLogin>(`${apiUrl}users/login`, {
         username,
         password
       })
       .pipe(
-        tap((result: any) => {
+        tap((result: UserLogin) => {
           console.log(result);
-          if (result.success) {
-            const decoded: any = jwt_decode(result.token);
-            this.currentUser = decoded.user;
+          if (result.success && result.token) {
+            this.currentUser = (<JwtPayload>jwtDecode(result.token)).user;
+            console.log(this.currentUser);
             localStorage.setItem('auth-token', result.token);
-            if (decoded.user.username === 'admin') {
+            if (this.currentUser?.username === 'admin') {
               this.currentUser!.admin = true;
             }
           }
@@ -33,19 +36,19 @@ export class AuthService {
       );
   }
 
-  registerUser(user: User) {
-    return this.httpClient.post(`${apiUrl}users/register`, user);
+  registerUser(user: User): Observable<UserRegister> {
+    return this.httpClient.post<UserRegister>(`${apiUrl}users/register`, user);
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('auth-token');
     this.currentUser = null;
   }
 
-  checkAuthenticationStatus() {
+  checkAuthenticationStatus(): void {
     const token = localStorage.getItem('auth-token');
     if (token != null) {
-      const decoded: any = jwt_decode(token);
+      const decoded: any = jwtDecode(token);
       this.currentUser = decoded.user;
     }
   }
