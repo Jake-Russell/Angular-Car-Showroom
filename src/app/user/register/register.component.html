@@ -1,0 +1,165 @@
+<!-- <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+
+    <form
+      [formGroup]="registerForm"
+      class="example-form"
+      (ngSubmit)="onFormSubmit()"
+    >
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Forename" formControlName="forename" />
+          <mat-error>
+            <span
+              *ngIf="
+                !registerForm.get('forename')?.valid &&
+                registerForm.get('forename')?.touched
+              "
+              >Please enter your forename</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Surname" formControlName="surname" />
+          <mat-error>
+            <span
+              *ngIf="
+                !registerForm.get('surname')?.valid &&
+                registerForm.get('surname')?.touched
+              "
+              >Please enter your surname</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Username" formControlName="username" />
+          <mat-error>
+            <span
+              *ngIf="
+                !registerForm.get('username')?.valid &&
+                registerForm.get('username')?.touched
+              "
+              >Please enter your username</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" formControlName="password" />
+          <mat-error>
+            <span
+              *ngIf="
+                !registerForm.get('password')?.valid &&
+                registerForm.get('password')?.touched
+              "
+              >Please enter your password</span
+            >
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <button
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        [disabled]="!registerForm.valid"
+      >
+        Create Account
+      </button>
+    </form>
+    <br />
+    <div *ngIf="registerInvalid" class="alert alert-danger">
+      {{ registerInvalid }}
+    </div>
+  </mat-card>
+</div> -->
+
+<mat-card>
+  <mat-card-title>
+    Register a New Account
+    <hr
+  /></mat-card-title>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Forename</mat-label>
+        <input formControlName="forename" matInput required />
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('forename')?.valid &&
+              registerForm.get('forename')?.touched
+            "
+            >Please enter your forename</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Surname</mat-label>
+        <input formControlName="surname" matInput required />
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('surname')?.valid &&
+              registerForm.get('surname')?.touched
+            "
+            >Please enter your surname</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput required />
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('username')?.valid &&
+              registerForm.get('username')?.touched
+            "
+            >Please enter your username</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+          matInput
+          required
+        />
+        <mat-icon matSuffix (click)="hide = !hide">{{
+          hide ? 'visibility_off' : 'visibility'
+        }}</mat-icon>
+        <mat-error>
+          <span
+            *ngIf="
+              !registerForm.get('password')?.valid &&
+              registerForm.get('password')?.touched
+            "
+            >Please enter your password</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!registerForm.valid"
+      >
+        Create Account
+      </button>
+    </mat-card-content>
+  </form>
+  <br />
+  <div *ngIf="registerInvalid" class="alert alert-danger">
+    {{ registerInvalid }}
+  </div>
+</mat-card>

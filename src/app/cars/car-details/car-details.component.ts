@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Car } from '../car';
 import { CarService } from '../car.service';
 
@@ -10,12 +11,14 @@ import { CarService } from '../car.service';
 export class CarDetailsComponent implements OnInit {
   car!: Car;
 
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.carService.getCarById('611e2fd786167d8668aaa2ff').subscribe((val) => {
-      console.log(`Value is ${val}`);
-      this.car = val;
-    });
+    this.carService
+      .getCarById(this.route.snapshot.params.id)
+      .subscribe((val) => {
+        console.log(`Value is ${val}`);
+        this.car = val;
+      });
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-constructor */
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { AuthService } from './user/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,9 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent implements OnInit {
   closeResult!: string;
 
-  public constructor(private titleService: Title) {}
+  public constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('Angular Car Showroom');
+    this.authService.checkAuthenticationStatus();
   }
 }

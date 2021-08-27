@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { debounceTime } from 'rxjs/operators';
 import { AddCarDialogComponent } from 'src/app/add-car-dialog/add-car-dialog.component';
+import { AuthService } from 'src/app/user/auth.service';
 import { Car } from '../car';
 import { CarSortBy } from '../car-sort-by.enum';
 import { CarService } from '../car.service';
@@ -29,7 +30,8 @@ export class CarList implements OnInit {
   constructor(
     private carService: CarService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

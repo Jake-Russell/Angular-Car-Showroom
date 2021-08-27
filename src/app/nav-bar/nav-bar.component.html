@@ -1,21 +1,41 @@
-<mat-toolbar color="primary" class="app-header">
-  <div>
-    <a href="https://www.positronx.io" target="_blank" class="positronx"
-      >PositronX.io</a
-    >
-  </div>
-  <span class="nav-tool-items" style="margin-left: auto">
-    <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link"
-      >Create Event</a
-    >
+<mat-toolbar color="primary">
+  <button mat-button routerLink="/">
+    <mat-icon>home</mat-icon>
+    Angular Car Showroom
+  </button>
 
-    <a mat-button [routerLink]="['/login']" routerLinkActive="active">Log in</a>
-    <a
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <!--<button mat-button routerLink="/user/register">Register</button>-->
+    <button
+      *ngIf="!authService.currentUser"
       mat-button
-      mat-raised-button
-      [routerLink]="['/register']"
-      routerLinkActive="active"
-      >Register</a
+      routerLink="/user/login"
     >
-  </span>
+      Login
+    </button>
+    <button
+      *ngIf="authService.currentUser"
+      mat-button
+      (click)="logout()"
+      routerLink="/cars"
+    >
+      Logout
+    </button>
+    <button
+      *ngIf="authService.currentUser"
+      mat-button
+      routerLink="/user/profile"
+    >
+      Welcome, {{ authService.currentUser.forename }}
+    </button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item routerLink="/register">Register</button>
+  <button mat-menu-item routerLink="/login">Login</button>
+</mat-menu>

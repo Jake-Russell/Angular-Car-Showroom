@@ -1,7 +1,11 @@
 <div class="content-wrapper">
   <h1>Available Cars</h1>
   <hr />
-  <button mat-button (click)="addNewCar()">
+  <button
+    mat-button
+    (click)="addNewCar()"
+    *ngIf="authService.currentUser?.admin"
+  >
     <mat-icon>add</mat-icon> Add Car
   </button>
 

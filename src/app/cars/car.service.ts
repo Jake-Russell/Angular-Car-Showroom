@@ -1,22 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { apiUrl } from 'src/environments/environment';
 import { Car } from './car';
 import { CarSortBy } from './car-sort-by.enum';
 
 @Injectable()
 export class CarService {
-  carsCollection!: AngularFirestoreCollection<Car>;
-
-  constructor(
-    private firestore: AngularFirestore,
-    private httpClient: HttpClient
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   getAllCars(sortBy: string, searchTerm?: string): Observable<Car[]> {
     let order = 1;
@@ -46,35 +37,27 @@ export class CarService {
 
     if (searchTerm && searchTerm !== '' && searchTerm !== null) {
       return this.httpClient.get<Car[]>(
-        `http://localhost:3000/cars/search/${search}/${order}/${searchTerm}`
+        `${apiUrl}cars/search/${search}/${order}/${searchTerm}`
       );
     }
-    return this.httpClient.get<Car[]>(
-      `http://localhost:3000/cars/${search}/${order}`
-    );
+    return this.httpClient.get<Car[]>(`${apiUrl}cars/${search}/${order}`);
   }
 
   getCarById(id: string): Observable<Car> {
-    return this.httpClient.get<Car>(`http://localhost:3000/cars/${id}`);
+    return this.httpClient.get<Car>(`${apiUrl}cars/${id}`);
   }
 
   searchCars(searchTerm: string): Observable<Car[]> {
-    return this.httpClient.get<Car[]>(
-      `http://localhost:3000/cars/search/${searchTerm}`
-    );
+    return this.httpClient.get<Car[]>(`${apiUrl}cars/search/${searchTerm}`);
   }
 
   saveCar(car: Car, isNewCar: boolean): Observable<Car> {
     console.log(`Car in Service has imageUrl: ${car.imageUrl}`);
-    if (isNewCar)
-      return this.httpClient.post<Car>('http://localhost:3000/cars', car);
-    return this.httpClient.put<Car>(
-      `http://localhost:3000/cars/update/${car._id}`,
-      car
-    );
+    if (isNewCar) return this.httpClient.post<Car>(`${apiUrl}cars`, car);
+    return this.httpClient.put<Car>(`${apiUrl}cars/update/${car._id}`, car);
   }
 
   deleteCar(car: Car): Observable<Car> {
-    return this.httpClient.delete<Car>(`http://localhost:3000/cars/${car._id}`);
+    return this.httpClient.delete<Car>(`${apiUrl}cars/${car._id}`);
   }
 }

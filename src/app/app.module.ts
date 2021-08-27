@@ -1,34 +1,42 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { PreloadAllModules, RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+// Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { AppComponent } from './app.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { appRoutes } from './routes';
-import { CarList } from './cars/car-list/car-list.component';
-import { CarThumbnailComponent } from './cars/car-thumbnail/car-thumbnail.component';
-import { CarService } from './cars/car.service';
+
+// Custom
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AddCarDialogComponent } from './add-car-dialog/add-car-dialog.component';
-import { LogInComponent } from './log-in/log-in.component';
-import { RegisterComponent } from './register/register.component';
-import { CarDetailsComponent } from './cars/car-details/car-details.component';
+import { appRoutes } from './routes';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { AppComponent } from './app.component';
+
+import {
+  CarList,
+  CarService,
+  CarThumbnailComponent,
+  CarDetailsComponent,
+  CarRouteActivatorService
+} from './cars/index';
+import { AuthService } from './user/auth.service';
 
 @NgModule({
   declarations: [
@@ -37,9 +45,8 @@ import { CarDetailsComponent } from './cars/car-details/car-details.component';
     CarList,
     CarThumbnailComponent,
     AddCarDialogComponent,
-    LogInComponent,
-    RegisterComponent,
-    CarDetailsComponent
+    CarDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -47,12 +54,11 @@ import { CarDetailsComponent } from './cars/car-details/car-details.component';
     HttpClientModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    MatMenuModule,
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
@@ -63,7 +69,7 @@ import { CarDetailsComponent } from './cars/car-details/car-details.component';
     MatSlideToggleModule,
     FlexLayoutModule
   ],
-  providers: [Title, CarService],
+  providers: [CarService, CarRouteActivatorService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
